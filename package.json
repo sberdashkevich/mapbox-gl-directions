@@ -14,9 +14,9 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "start": "NODE_ENV=development budo example/index.js:example/bundle.js --live",
-    "build": "NODE_ENV=production mkdir -p dist && browserify -s MapboxDirections src/index.js > dist/mapbox-gl-directions.js && cp src/mapbox-gl-directions.css dist",
-    "test": "NODE_ENV=test npm run lint && browserify test/index.js | smokestack -b firefox | tap-status",
+    "start": "setx NODE_ENV 'development' budo example/index.js:example/bundle.js --live",
+    "build": "setx NODE_ENV 'production' && if exist dist rd /q /s dist && mkdir dist && browserify -s MapboxDirections src/index.js > dist/mapbox-gl-directions.js && xcopy '.\\src\\mapbox-gl-directions.css' 'dist'",
+    "test": "setx NODE_ENV 'test' npm run lint && browserify test/index.js | smokestack -b firefox | tap-status",
     "docs": "documentation build src/directions.js --shallow --format=md > API.md",
     "lint": "eslint --no-eslintrc -c .eslintrc src"
   },
